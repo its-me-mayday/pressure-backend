@@ -3,13 +3,15 @@ package main
 import (
 	"api-pressure/controller"
 	router "api-pressure/http"
+	"api-pressure/repository"
 	"api-pressure/service"
 	"fmt"
 	"net/http"
 )
 
 var (
-	pressureService    service.PressureService       = service.NewPressureService()
+	pressureRepository repository.PressureRepository = repository.NewMockRepository()
+	pressureService    service.PressureService       = service.NewPressureService(pressureRepository)
 	pressureController controller.PressureController = controller.NewPressureController(pressureService)
 	httpRouter         router.Router                 = router.NewChiRouter()
 )

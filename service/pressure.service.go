@@ -8,26 +8,26 @@ import (
 )
 
 type PressureService interface {
-	//Validate(pressure *domain.Pressure) bool
 	Create(pressure *domain.Pressure) (*domain.Pressure, error)
 	FindAll() ([]domain.Pressure, error)
 }
 
-type service struct{}
-
 var (
-	repo repository.PressureRepository = repository.NewMockRepository()
+	pressureRepository repository.PressureRepository
 )
 
-func NewPressureService() PressureService {
+type service struct{}
+
+func NewPressureService(repository repository.PressureRepository) PressureService {
+	pressureRepository = repository
 	return &service{}
 }
 
 func (*service) Create(pressure *domain.Pressure) (*domain.Pressure, error) {
 	pressure.ID = uuid.New()
-	return repo.Save(pressure)
+	return pressureRepository.Save(pressure)
 }
 
 func (*service) FindAll() ([]domain.Pressure, error) {
-	return repo.FindAll()
+	return pressureRepository.FindAll()
 }
