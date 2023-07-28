@@ -9,7 +9,7 @@ import (
 
 var (
 	pressureController controller.PressureController = controller.NewPressureController()
-	httpRouter         router.Router                 = router.NewMuxRouter()
+	httpRouter         router.Router                 = router.NewChiRouter()
 )
 
 func main() {

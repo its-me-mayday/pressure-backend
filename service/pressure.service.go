@@ -16,7 +16,7 @@ type PressureService interface {
 type service struct{}
 
 var (
-	repo repository.PressureRepository = repository.NewPressureRepository()
+	repo repository.PressureRepository = repository.NewMockRepository()
 )
 
 func NewPressureService() PressureService {
