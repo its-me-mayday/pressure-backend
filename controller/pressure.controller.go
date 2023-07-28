@@ -14,12 +14,13 @@ type PressureController interface {
 }
 
 var (
-	pressureService service.PressureService = service.NewPressureService()
+	pressureService service.PressureService
 )
 
 type controller struct{}
 
-func NewPressureController() PressureController {
+func NewPressureController(service service.PressureService) PressureController {
+	pressureService = service
 	return &controller{}
 }
 

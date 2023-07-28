@@ -3,12 +3,14 @@ package main
 import (
 	"api-pressure/controller"
 	router "api-pressure/http"
+	"api-pressure/service"
 	"fmt"
 	"net/http"
 )
 
 var (
-	pressureController controller.PressureController = controller.NewPressureController()
+	pressureService    service.PressureService       = service.NewPressureService()
+	pressureController controller.PressureController = controller.NewPressureController(pressureService)
 	httpRouter         router.Router                 = router.NewChiRouter()
 )
 
