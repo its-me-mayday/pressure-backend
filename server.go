@@ -10,8 +10,8 @@ import (
 )
 
 var (
-	pressureRepository repository.PressureRepository = repository.NewMockRepository()
-	pressureService    service.PressureService       = service.NewPressureService(pressureRepository)
+	Repository         repository.Repository         = repository.NewMockRepository()
+	pressureService    service.PressureService       = service.NewPressureService(Repository)
 	pressureController controller.PressureController = controller.NewPressureController(pressureService)
 	httpRouter         router.Router                 = router.NewChiRouter()
 )

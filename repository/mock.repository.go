@@ -8,7 +8,7 @@ var (
 	pressures []domain.Pressure
 )
 
-func NewMockRepository() PressureRepository {
+func NewMockRepository() Repository {
 	return &mockRepository{}
 }
 

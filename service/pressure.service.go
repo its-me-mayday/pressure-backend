@@ -13,21 +13,21 @@ type PressureService interface {
 }
 
 var (
-	pressureRepository repository.PressureRepository
+	Repository repository.Repository
 )
 
 type service struct{}
 
-func NewPressureService(repository repository.PressureRepository) PressureService {
-	pressureRepository = repository
+func NewPressureService(repository repository.Repository) PressureService {
+	Repository = repository
 	return &service{}
 }
 
 func (*service) Create(pressure *domain.Pressure) (*domain.Pressure, error) {
 	pressure.ID = uuid.New()
-	return pressureRepository.Save(pressure)
+	return Repository.Save(pressure)
 }
 
 func (*service) FindAll() ([]domain.Pressure, error) {
-	return pressureRepository.FindAll()
+	return Repository.FindAll()
 }
