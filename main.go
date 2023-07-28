@@ -1,13 +1,15 @@
 package main
 
 import (
+	"api-pressure/controller"
 	router "api-pressure/http"
 	"fmt"
 	"net/http"
 )
 
 var (
-	httpRouter router.Router = router.NewMuxRouter()
+	pressureController controller.PressureController = controller.NewPressureController()
+	httpRouter         router.Router                 = router.NewMuxRouter()
 )
 
 func main() {
@@ -16,5 +18,6 @@ func main() {
 	httpRouter.GET("/", func(resp http.ResponseWriter, req *http.Request) {
 		fmt.Fprintln(resp, "Up and running")
 	})
+	httpRouter.POST("/pressures", pressureController.AddPressure)
 	httpRouter.SERVE(port)
 }

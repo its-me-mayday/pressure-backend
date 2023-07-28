@@ -9,27 +9,20 @@ import (
 )
 
 type PressureController interface {
-	getPressures(resp http.ResponseWriter, req *http.Request)
-	addPressure(resp http.ResponseWriter, req *http.Request)
+	AddPressure(resp http.ResponseWriter, req *http.Request)
 }
 
 var (
 	pressureService service.PressureService = service.NewPressureService()
 )
 
-func getPressures(resp http.ResponseWriter, req *http.Request) {
-	//resp.Header().Set("Content-type", "application/json")
-	//result, err := json.Marshal(pressures)
-	//if err != nil {
-	//	resp.WriteHeader(http.StatusInternalServerError)
-	//	resp.Write([]byte(`{"error","Error marshalling"}`))
-	//	return
-	//}
-	//resp.WriteHeader(http.StatusOK)
-	//resp.Write(result)
+type controller struct{}
+
+func NewPressureController() PressureController {
+	return &controller{}
 }
 
-func addPressure(resp http.ResponseWriter, req *http.Request) {
+func (*controller) AddPressure(resp http.ResponseWriter, req *http.Request) {
 	resp.Header().Set("Content-type", "application/json")
 	var pressure domain.Pressure
 	err := json.NewDecoder(req.Body).Decode(&pressure)
