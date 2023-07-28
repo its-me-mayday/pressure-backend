@@ -7,6 +7,7 @@ import (
 	"api-pressure/service"
 	"fmt"
 	"net/http"
+	"os"
 )
 
 var (
@@ -17,12 +18,10 @@ var (
 )
 
 func main() {
-	const port string = ":8000"
-
 	httpRouter.GET("/", func(resp http.ResponseWriter, req *http.Request) {
 		fmt.Fprintln(resp, "Up and running")
 	})
 	httpRouter.POST("/pressures", pressureController.AddPressure)
 	httpRouter.GET("/pressures", pressureController.GetPressures)
-	httpRouter.SERVE(port)
+	httpRouter.SERVE(":" + os.Getenv("PORT"))
 }
