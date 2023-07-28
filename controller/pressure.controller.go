@@ -10,6 +10,7 @@ import (
 
 type PressureController interface {
 	AddPressure(resp http.ResponseWriter, req *http.Request)
+	GetPressures(resp http.ResponseWriter, req *http.Request)
 }
 
 var (
@@ -36,4 +37,17 @@ func (*controller) AddPressure(resp http.ResponseWriter, req *http.Request) {
 	resp.WriteHeader(http.StatusOK)
 	result, err := json.Marshal(pressure)
 	resp.Write(result)
+}
+
+func (*controller) GetPressures(resp http.ResponseWriter, req *http.Request) {
+	resp.Header().Set("Content-type", "application/json")
+	pressures, err := pressureService.FindAll()
+	if err != nil {
+		resp.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(resp).Encode(errors.ServiceError{Message: "Error Get Pressure"})
+		return
+	}
+
+	resp.WriteHeader(http.StatusOK)
+	json.NewEncoder(resp).Encode(pressures)
 }

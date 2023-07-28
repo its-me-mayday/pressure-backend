@@ -19,5 +19,6 @@ func main() {
 		fmt.Fprintln(resp, "Up and running")
 	})
 	httpRouter.POST("/pressures", pressureController.AddPressure)
+	httpRouter.GET("/pressures", pressureController.GetPressures)
 	httpRouter.SERVE(port)
 }

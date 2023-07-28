@@ -10,7 +10,7 @@ import (
 type PressureService interface {
 	//Validate(pressure *domain.Pressure) bool
 	Create(pressure *domain.Pressure) (*domain.Pressure, error)
-	//FindAll() ([]domain.Pressure, error)
+	FindAll() ([]domain.Pressure, error)
 }
 
 type service struct{}
@@ -26,4 +26,8 @@ func NewPressureService() PressureService {
 func (*service) Create(pressure *domain.Pressure) (*domain.Pressure, error) {
 	pressure.ID = uuid.New()
 	return repo.Save(pressure)
+}
+
+func (*service) FindAll() ([]domain.Pressure, error) {
+	return repo.FindAll()
 }
